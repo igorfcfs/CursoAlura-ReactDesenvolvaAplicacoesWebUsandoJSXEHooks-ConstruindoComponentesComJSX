@@ -27,6 +27,9 @@
 
     <!--JSX: HTML + JS-->
     <script type="text/babel">
+        
+
+        //Props children = propriedades JSX filhas
         function Titulo({ children }){
             return (
                 <h1 className="form__titulo">{children}</h1>
@@ -38,11 +41,11 @@
             )
         }
         //Props = propriedades JSX
-        function CampoDeDigitacao({ id, label, tipo, placeholder }){
+        function CampoDeDigitacao({ id, label, tipo, placeholder, value, setValor }){
             return (
                 <div className="form__campo-digitacao">
                     <label for={label}>E-mail ou usuário</label>
-                    <input type={tipo} id={id} placeholder={placeholder} required/>
+                    <input type={tipo} id={id} placeholder={placeholder} required value={value} onChange={(evento) => setValor(evento.target.value)} />
                 </div>
             )
         }
@@ -52,15 +55,30 @@
             )
         }
         function PaginaDeLogin(){
+            //let email = ''
+            /*function substituiValorDoCampo(novoValor) {
+                email = novoValor
+                console.log(email)
+            }*/
+
+            const [email, setEmail] = React.useState('');
+            const [senha, setSenha] = React.useState('');
+
+            const handleSubmit = (event) => {
+                event.preventDefault();
+                console.log('email ' + email);
+                console.log('senha ' + senha);
+            }
+            
             return (
                 <div className="container-login">
                     <img src="./img/imagem-login.png" alt="Mulher negra de cabelos pretos mexendo no computador" />
                     <section>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <Titulo>Login</Titulo>
                             <Subtitulo>Boas vindas! Faça seu login</Subtitulo>
-                            <CampoDeDigitacao id="email" label="Email ou usuario" tipo="email" placeholder="Digite o seu email ou usuario"/>
-                            <CampoDeDigitacao id="senha" label="Senha" tipo="password" placeholder="Digite a sua senha" />
+                            <CampoDeDigitacao id="email" label="Email ou usuario" tipo="email" placeholder="Digite o seu email ou usuario" value={email} setValor={setEmail}/>
+                            <CampoDeDigitacao id="senha" label="Senha" tipo="password" placeholder="Digite a sua senha" value={senha} setValor={setSenha} />
                             <Botao />
                         </form>
                     </section>
