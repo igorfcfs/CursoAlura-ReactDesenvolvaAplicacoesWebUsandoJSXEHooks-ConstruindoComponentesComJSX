@@ -49,9 +49,41 @@
                 </div>
             )
         }
-        function Botao(){
+        function Botao({children}){
             return (
-                <button type="submit" className="form__botao">Login</button>
+                <button type="submit" className="form__botao">{children}</button>
+            )
+        }
+        function Checkbox(){
+            return (
+                //Fragments
+                <>
+                    <div className='form__campo-checkbox'>
+                        <input type='checkbox' id='lembrar' />
+                        <label for='lembrar' />
+                    </div>
+                    <p className='form__opcoes-texto'>Lembrar-me</p>
+                </>
+            )
+        }
+        function Texto({classe, children}){
+            return (
+                <p className={classe}>{children}</p>
+            )
+        }
+        function ItemRedesSociais({link, nome}){
+            return (
+                <li>
+                    <a href={link}>
+                        <img src={`./img/${nome}.svg`} alt={`icone do ${nome}`} />
+                        {nome}
+                    </a>
+                </li>
+            )
+        }
+        function Link({children}){
+            return (
+                <a href="#" className="container-links__link">{children}</a>
             )
         }
         function PaginaDeLogin(){
@@ -79,8 +111,23 @@
                             <Subtitulo>Boas vindas! Faça seu login</Subtitulo>
                             <CampoDeDigitacao id="email" label="Email ou usuario" tipo="email" placeholder="Digite o seu email ou usuario" value={email} setValor={setEmail}/>
                             <CampoDeDigitacao id="senha" label="Senha" tipo="password" placeholder="Digite a sua senha" value={senha} setValor={setSenha} />
-                            <Botao />
+                            <fieldset className="form__opcoes">
+                                <Checkbox />
+                                <p>
+                                    <a href="#" aria-label="Recuperar senha esquecida">Esqueci a senha</a>
+                                </p>
+                            </fieldset>
+                            <Botao>Login</Botao>
                         </form>
+                        <div className="container-links">
+                            <Texto className="container-links__titulo">ou entre com outras contas</Texto>
+                            <ul>
+                                <ItemRedesSociais link="https://www.github.com" nome="Github" />
+                                <ItemRedesSociais link="https://www.google.com" nome="Google" />
+                            </ul>
+                            <Texto className="container-links__texto">Ainda não tem conta</Texto>
+                            <Link>Crie seu cadastro!</Link>
+                        </div>
                     </section>
                 </div>
             )
@@ -91,4 +138,3 @@
 </body>
 
 </html>
-
